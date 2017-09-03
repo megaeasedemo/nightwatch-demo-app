@@ -1,0 +1,24 @@
+environments:
+- name: demo
+  description: Demo environment
+  username: ubuntu
+  ssh_key_file: demo.pem
+  endpoints:
+  - 13.113.238.42
+
+plugins:
+- name: build_image
+  script: release/build-image.sh
+  image_name: megaease/nightwatch-demo
+  docker_registry: dockerhub.megaease.com
+  push_image: true
+  notifications:
+    emails:
+    - g7tianyi@easestack.com
+
+- name: deploy_demo
+  env: demo
+  script: release/deploy.sh
+  notifications:
+    emails:
+    - g7tianyi@easestack.com
