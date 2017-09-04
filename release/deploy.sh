@@ -26,7 +26,7 @@ function stop_instance() {
 
     info "Stop Instance"
     sleep 1
-    docker stop $(docker ps -a | grep ${DOCKER_CONTAINER_NAME} | awk '{print $1}') || /bin/true
+    docker rm -f $(docker ps -a | grep ${DOCKER_CONTAINER_NAME} | awk '{print $1}') || /bin/true
 
 }
 
