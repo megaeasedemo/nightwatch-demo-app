@@ -24,14 +24,14 @@ DOCKER_CONTAINER_NAME="demo-app"
 
 function stop_instance() {
 
-    info "Stop demo app"
-    docker stop $(docker ps -a | grep ${DOCKER_CONTAINER_NAME} | awk '{print $1}')
+    info "Stop Instance"
+    docker stop $(docker ps -a | grep ${DOCKER_CONTAINER_NAME} | awk '{print $1}') || /bin/true
 
 }
 
 function start_instance() {
 
-    info "Pull new image"
+    info "Pull Docker Image"
     IMAGE=""
     if [ -z "${IMAGE_VERSION}" ]; then
         docker rmi $(docker images | grep 'nightwatch-demo') || /bin/true
@@ -41,7 +41,7 @@ function start_instance() {
     fi
     docker pull ${IMAGE}
 
-    info "start demo app"
+    info "Start Instance"
     docker run --name ${DOCKER_CONTAINER_NAME} -d -p 80:80 ${IMAGE}
 
 }
